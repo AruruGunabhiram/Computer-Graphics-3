@@ -1,0 +1,102 @@
+Homework 3: Lighting and Textures
+Name: Gunabhiram Aruru
+
+Description
+-----------
+This program creates a 3D textured scene using handmade OpenGL geometry.
+The scene continues from my Homework 2 work and adds lighting, material
+properties, texture mapping, and a moving positional light source.
+
+The scene includes:
+- a textured ground plane
+- handmade textured box-based objects
+- a handmade cylinder-style object with manually assigned normals
+- a handmade sloped/roof-style object with manually assigned normals
+- a visible moving light marker
+
+No GLU solid objects, GLUT solid objects, or imported model files are used
+for the scene geometry. Objects are built manually using vertices, normals,
+and texture coordinates.
+
+Build Instructions
+------------------
+On Linux:
+    make clean
+    make
+
+On macOS:
+    make clean
+    make
+
+Run Instructions
+----------------
+    ./hw3
+
+Controls
+--------
+Arrow keys        Change view angle
+PageUp/PageDown   Zoom in/out or change scene dimension
+0                 Reset view and light to default
+m                 Toggle projection mode
+o                 Toggle overhead view
+l                 Toggle lighting on/off
+t                 Toggle textures on/off
+Space             Pause/resume automatic light movement
+,                 Move light angle backward manually
+.                 Move light angle forward manually
+[                 Lower light height
+]                 Raise light height
+q or ESC          Exit
+
+Lighting
+--------
+The program uses fixed-pipeline OpenGL lighting with GL_LIGHT0 as a
+positional light. The light moves around the scene automatically so that
+the effect of changing light position is visible on the textured surfaces.
+The light can also be paused and moved manually for debugging and grading.
+
+Surface normals are manually assigned for all major objects. Box faces use
+axis-aligned normals. The cylinder-style object uses radial side normals,
+and the sloped object uses manually computed or explicitly defined outward
+face normals.
+
+Textures
+--------
+Textures are loaded from BMP files in the textures directory. Texture sizes
+are power-of-two dimensions and kept small. Texture coordinates are assigned
+manually to the scene geometry.
+
+The texture environment uses GL_MODULATE so textures interact with lighting
+instead of replacing the lighting result.
+
+Texture files used:
+- textures/grass.bmp
+- textures/wood.bmp
+- textures/stone.bmp
+- textures/metal.bmp
+- textures/roof.bmp
+
+Code Reuse / References / AI Usage
+----------------------------------
+This project continues from my Homework 2 scene structure.
+
+I reused or adapted general OpenGL patterns from the course examples,
+especially the examples covering texture loading, fixed-pipeline lighting,
+material settings, moving lights, and manual normal vectors.
+
+The texture BMP loading helper is based on the course example helper code
+if included in this submission.
+
+AI assistance was used as a coding aid for selected implementation details,
+especially for reviewing normal-vector logic, texture-coordinate assignment,
+and organizing the Homework 3 conversion checklist. AI-assisted code was
+reviewed, tested, and modified before submission. I am responsible for the
+final code.
+
+In the source code, complex AI-assisted geometry functions include short
+comment blocks explaining the assisted section and the course concept used.
+Simple boilerplate and small edits are not individually marked.
+
+Approximate Time Spent
+----------------------
+Approximately ___ hours.
