@@ -38,9 +38,9 @@ Arrow keys        Change view angle
 PageUp/PageDown   Zoom in/out or change scene dimension
 0                 Reset view and light to default
 m                 Toggle projection mode
-o                 Toggle overhead view
 l                 Toggle lighting on/off
 t                 Toggle textures on/off
+r                 Pause/resume windmill blade rotation
 Space             Pause/resume automatic light movement
 ,                 Move light angle backward manually
 .                 Move light angle forward manually
@@ -76,6 +76,14 @@ Texture files used:
 - textures/metal.bmp
 - textures/roof.bmp
 
+The major visible scene objects are textured: ground, path, barn walls,
+barn roof, windmill towers and blades, and fence posts and rails. Ground,
+path, long rails, and large walls repeat their textures to avoid stretching.
+
+The light marker, coordinate axes, ground guide lines, and on-screen text
+are intentionally untextured. They are interface/debugging aids rather than
+scene materials, so solid colors keep them clear and easy to read.
+
 Code Reuse / References / AI Usage
 ----------------------------------
 This project continues from my Homework 2 scene structure.
@@ -99,4 +107,4 @@ Simple boilerplate and small edits are not individually marked.
 
 Approximate Time Spent
 ----------------------
-Approximately ___ hours.
+Approximately 16 hours.

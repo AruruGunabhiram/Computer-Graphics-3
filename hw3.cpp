@@ -222,45 +222,45 @@ void DrawAxes()
    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, 'Z');
 }
 
-void drawBoxUnit()
+void drawBoxUnit(double repeatX = 1, double repeatY = 1, double repeatZ = 1)
 {
    glBegin(GL_QUADS);
 
    glNormal3f(0, 0, 1);
    glTexCoord2f(0, 0); glVertex3d(-0.5, -0.5,  0.5);
-   glTexCoord2f(1, 0); glVertex3d( 0.5, -0.5,  0.5);
-   glTexCoord2f(1, 1); glVertex3d( 0.5,  0.5,  0.5);
-   glTexCoord2f(0, 1); glVertex3d(-0.5,  0.5,  0.5);
+   glTexCoord2d(repeatX, 0); glVertex3d( 0.5, -0.5,  0.5);
+   glTexCoord2d(repeatX, repeatY); glVertex3d( 0.5,  0.5,  0.5);
+   glTexCoord2d(0, repeatY); glVertex3d(-0.5,  0.5,  0.5);
 
    glNormal3f(0, 0, -1);
    glTexCoord2f(0, 0); glVertex3d( 0.5, -0.5, -0.5);
-   glTexCoord2f(1, 0); glVertex3d(-0.5, -0.5, -0.5);
-   glTexCoord2f(1, 1); glVertex3d(-0.5,  0.5, -0.5);
-   glTexCoord2f(0, 1); glVertex3d( 0.5,  0.5, -0.5);
+   glTexCoord2d(repeatX, 0); glVertex3d(-0.5, -0.5, -0.5);
+   glTexCoord2d(repeatX, repeatY); glVertex3d(-0.5,  0.5, -0.5);
+   glTexCoord2d(0, repeatY); glVertex3d( 0.5,  0.5, -0.5);
 
    glNormal3f(-1, 0, 0);
    glTexCoord2f(0, 0); glVertex3d(-0.5, -0.5, -0.5);
-   glTexCoord2f(1, 0); glVertex3d(-0.5, -0.5,  0.5);
-   glTexCoord2f(1, 1); glVertex3d(-0.5,  0.5,  0.5);
-   glTexCoord2f(0, 1); glVertex3d(-0.5,  0.5, -0.5);
+   glTexCoord2d(repeatZ, 0); glVertex3d(-0.5, -0.5,  0.5);
+   glTexCoord2d(repeatZ, repeatY); glVertex3d(-0.5,  0.5,  0.5);
+   glTexCoord2d(0, repeatY); glVertex3d(-0.5,  0.5, -0.5);
 
    glNormal3f(1, 0, 0);
    glTexCoord2f(0, 0); glVertex3d(0.5, -0.5,  0.5);
-   glTexCoord2f(1, 0); glVertex3d(0.5, -0.5, -0.5);
-   glTexCoord2f(1, 1); glVertex3d(0.5,  0.5, -0.5);
-   glTexCoord2f(0, 1); glVertex3d(0.5,  0.5,  0.5);
+   glTexCoord2d(repeatZ, 0); glVertex3d(0.5, -0.5, -0.5);
+   glTexCoord2d(repeatZ, repeatY); glVertex3d(0.5,  0.5, -0.5);
+   glTexCoord2d(0, repeatY); glVertex3d(0.5,  0.5,  0.5);
 
    glNormal3f(0, 1, 0);
    glTexCoord2f(0, 0); glVertex3d(-0.5, 0.5,  0.5);
-   glTexCoord2f(1, 0); glVertex3d( 0.5, 0.5,  0.5);
-   glTexCoord2f(1, 1); glVertex3d( 0.5, 0.5, -0.5);
-   glTexCoord2f(0, 1); glVertex3d(-0.5, 0.5, -0.5);
+   glTexCoord2d(repeatX, 0); glVertex3d( 0.5, 0.5,  0.5);
+   glTexCoord2d(repeatX, repeatZ); glVertex3d( 0.5, 0.5, -0.5);
+   glTexCoord2d(0, repeatZ); glVertex3d(-0.5, 0.5, -0.5);
 
    glNormal3f(0, -1, 0);
    glTexCoord2f(0, 0); glVertex3d(-0.5, -0.5, -0.5);
-   glTexCoord2f(1, 0); glVertex3d( 0.5, -0.5, -0.5);
-   glTexCoord2f(1, 1); glVertex3d( 0.5, -0.5,  0.5);
-   glTexCoord2f(0, 1); glVertex3d(-0.5, -0.5,  0.5);
+   glTexCoord2d(repeatX, 0); glVertex3d( 0.5, -0.5, -0.5);
+   glTexCoord2d(repeatX, repeatZ); glVertex3d( 0.5, -0.5,  0.5);
+   glTexCoord2d(0, repeatZ); glVertex3d(-0.5, -0.5,  0.5);
    glEnd();
 }
 
@@ -376,7 +376,7 @@ void drawWindmillBaseUnit()
    glPushMatrix();
    glTranslated(0, 0.12, 0);
    glScaled(0.9, 0.24, 0.9);
-   drawBoxUnit();
+   drawBoxUnit(2, 1, 2);
    glPopMatrix();
 
    glBegin(GL_QUADS);
@@ -408,7 +408,7 @@ void drawWindmillBaseUnit()
    glPushMatrix();
    glTranslated(0, 2.95, 0.08);
    glScaled(0.65, 0.45, 0.85);
-   drawBoxUnit();
+   drawBoxUnit(2, 1, 2);
    glPopMatrix();
 }
 
@@ -420,13 +420,17 @@ void drawWindmillUnit(double bladeOffset)
       glEnable(GL_TEXTURE_2D);
       glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
       glBindTexture(GL_TEXTURE_2D, textureMetal);
+      glColor3f(0.86f, 0.88f, 0.90f);
    }
    drawWindmillBaseUnit();
 
    glPushMatrix();
    glTranslated(0, 3.0, 0.58);
    glRotated(bladeAngle + bladeOffset, 0, 0, 1);
-   glColor3f(0.92f, 0.84f, 0.58f);
+   if (textures)
+      glColor3f(0.95f, 0.90f, 0.78f);
+   else
+      glColor3f(0.92f, 0.84f, 0.58f);
    if (textures)
       glBindTexture(GL_TEXTURE_2D, textureWood);
    for (int blade = 0; blade < 4; ++blade)
@@ -436,7 +440,10 @@ void drawWindmillUnit(double bladeOffset)
       drawBladeUnit();
       glPopMatrix();
    }
-   glColor3f(0.32f, 0.25f, 0.18f);
+   if (textures)
+      glColor3f(0.85f, 0.85f, 0.82f);
+   else
+      glColor3f(0.32f, 0.25f, 0.18f);
    if (textures)
       glBindTexture(GL_TEXTURE_2D, textureMetal);
    drawHubUnit();
@@ -534,20 +541,22 @@ void drawFenceSection(double x, double z, double length, double rotation)
    glPushMatrix();
    glTranslated(x, 0, z);
    glRotated(rotation, 0, 1, 0);
-   glColor3f(0.55f, 0.34f, 0.16f);
    if (textures)
    {
       glEnable(GL_TEXTURE_2D);
       glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
       glBindTexture(GL_TEXTURE_2D, textureWood);
+      glColor3f(0.92f, 0.80f, 0.62f);
    }
+   else
+      glColor3f(0.55f, 0.34f, 0.16f);
 
    for (double post = -length / 2; post <= length / 2 + 0.01; post += 2.0)
    {
       glPushMatrix();
       glTranslated(post, 0.55, 0);
       glScaled(0.14, 1.1, 0.14);
-      drawBoxUnit();
+      drawBoxUnit(1, 2, 1);
       glPopMatrix();
    }
 
@@ -556,7 +565,7 @@ void drawFenceSection(double x, double z, double length, double rotation)
       glPushMatrix();
       glTranslated(0, 0.38 + 0.42 * rail, 0);
       glScaled(length, 0.12, 0.10);
-      drawBoxUnit();
+      drawBoxUnit(length, 1, 1);
       glPopMatrix();
    }
    glDisable(GL_TEXTURE_2D);
@@ -635,35 +644,45 @@ void drawBarnOrShed()
    glTranslated(5.7, 0, 3.4);
    glRotated(-18, 0, 1, 0);
 
-   glColor3f(0.55f, 0.16f, 0.12f);
    if (textures)
    {
       glEnable(GL_TEXTURE_2D);
       glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
       glBindTexture(GL_TEXTURE_2D, textureWood);
+      glColor3f(0.90f, 0.62f, 0.56f);
    }
+   else
+      glColor3f(0.55f, 0.16f, 0.12f);
    glPushMatrix();
    glTranslated(0, 0.9, 0);
    glScaled(2.4, 1.8, 2.0);
-   drawBoxUnit();
+   drawBoxUnit(3, 2, 2);
    glPopMatrix();
 
-   glColor3f(0.30f, 0.12f, 0.09f);
    if (textures)
+   {
       glBindTexture(GL_TEXTURE_2D, textureRoof);
+      glColor3f(0.90f, 0.90f, 0.88f);
+   }
+   else
+      glColor3f(0.30f, 0.12f, 0.09f);
    glPushMatrix();
    glTranslated(0, 1.75, 0);
    glScaled(2.7, 1.15, 2.3);
    drawGableRoofUnit();
    glPopMatrix();
 
-   glColor3f(0.80f, 0.72f, 0.52f);
    if (textures)
+   {
       glBindTexture(GL_TEXTURE_2D, textureWood);
+      glColor3f(0.96f, 0.90f, 0.74f);
+   }
+   else
+      glColor3f(0.80f, 0.72f, 0.52f);
    glPushMatrix();
    glTranslated(-1.21, 0.75, 0);
    glScaled(0.05, 1.15, 0.75);
-   drawBoxUnit();
+   drawBoxUnit(1, 2, 1);
    glPopMatrix();
    glDisable(GL_TEXTURE_2D);
    glPopMatrix();
