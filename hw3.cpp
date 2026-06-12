@@ -227,43 +227,50 @@ void drawBoxUnit()
    glBegin(GL_QUADS);
 
    glNormal3f(0, 0, 1);
-   glVertex3d(-0.5, -0.5,  0.5);
-   glVertex3d( 0.5, -0.5,  0.5);
-   glVertex3d( 0.5,  0.5,  0.5);
-   glVertex3d(-0.5,  0.5,  0.5);
+   glTexCoord2f(0, 0); glVertex3d(-0.5, -0.5,  0.5);
+   glTexCoord2f(1, 0); glVertex3d( 0.5, -0.5,  0.5);
+   glTexCoord2f(1, 1); glVertex3d( 0.5,  0.5,  0.5);
+   glTexCoord2f(0, 1); glVertex3d(-0.5,  0.5,  0.5);
 
    glNormal3f(0, 0, -1);
-   glVertex3d( 0.5, -0.5, -0.5);
-   glVertex3d(-0.5, -0.5, -0.5);
-   glVertex3d(-0.5,  0.5, -0.5);
-   glVertex3d( 0.5,  0.5, -0.5);
+   glTexCoord2f(0, 0); glVertex3d( 0.5, -0.5, -0.5);
+   glTexCoord2f(1, 0); glVertex3d(-0.5, -0.5, -0.5);
+   glTexCoord2f(1, 1); glVertex3d(-0.5,  0.5, -0.5);
+   glTexCoord2f(0, 1); glVertex3d( 0.5,  0.5, -0.5);
 
    glNormal3f(-1, 0, 0);
-   glVertex3d(-0.5, -0.5, -0.5);
-   glVertex3d(-0.5, -0.5,  0.5);
-   glVertex3d(-0.5,  0.5,  0.5);
-   glVertex3d(-0.5,  0.5, -0.5);
+   glTexCoord2f(0, 0); glVertex3d(-0.5, -0.5, -0.5);
+   glTexCoord2f(1, 0); glVertex3d(-0.5, -0.5,  0.5);
+   glTexCoord2f(1, 1); glVertex3d(-0.5,  0.5,  0.5);
+   glTexCoord2f(0, 1); glVertex3d(-0.5,  0.5, -0.5);
 
    glNormal3f(1, 0, 0);
-   glVertex3d(0.5, -0.5,  0.5);
-   glVertex3d(0.5, -0.5, -0.5);
-   glVertex3d(0.5,  0.5, -0.5);
-   glVertex3d(0.5,  0.5,  0.5);
+   glTexCoord2f(0, 0); glVertex3d(0.5, -0.5,  0.5);
+   glTexCoord2f(1, 0); glVertex3d(0.5, -0.5, -0.5);
+   glTexCoord2f(1, 1); glVertex3d(0.5,  0.5, -0.5);
+   glTexCoord2f(0, 1); glVertex3d(0.5,  0.5,  0.5);
 
    glNormal3f(0, 1, 0);
-   glVertex3d(-0.5, 0.5,  0.5);
-   glVertex3d( 0.5, 0.5,  0.5);
-   glVertex3d( 0.5, 0.5, -0.5);
-   glVertex3d(-0.5, 0.5, -0.5);
+   glTexCoord2f(0, 0); glVertex3d(-0.5, 0.5,  0.5);
+   glTexCoord2f(1, 0); glVertex3d( 0.5, 0.5,  0.5);
+   glTexCoord2f(1, 1); glVertex3d( 0.5, 0.5, -0.5);
+   glTexCoord2f(0, 1); glVertex3d(-0.5, 0.5, -0.5);
 
    glNormal3f(0, -1, 0);
-   glVertex3d(-0.5, -0.5, -0.5);
-   glVertex3d( 0.5, -0.5, -0.5);
-   glVertex3d( 0.5, -0.5,  0.5);
-   glVertex3d(-0.5, -0.5,  0.5);
+   glTexCoord2f(0, 0); glVertex3d(-0.5, -0.5, -0.5);
+   glTexCoord2f(1, 0); glVertex3d( 0.5, -0.5, -0.5);
+   glTexCoord2f(1, 1); glVertex3d( 0.5, -0.5,  0.5);
+   glTexCoord2f(0, 1); glVertex3d(-0.5, -0.5,  0.5);
    glEnd();
 }
 
+/*
+AI assistance note:
+This function was drafted with AI assistance and then reviewed/modified.
+The important course concept used here is manual normal-vector assignment
+for fixed-pipeline OpenGL lighting. No GLU/GLUT solid objects or imported
+models are used.
+*/
 void drawBladeUnit()
 {
    const double x[5] = {-0.08, 0.17, 0.30, 0.09, -0.16};
@@ -274,13 +281,19 @@ void drawBladeUnit()
    glBegin(GL_POLYGON);
    glNormal3f(0, 0, 1);
    for (int i = 0; i < 5; ++i)
+   {
+      glTexCoord2d(x[i] + 0.16, y[i] / 1.78);
       glVertex3d(x[i], y[i], front);
+   }
    glEnd();
 
    glBegin(GL_POLYGON);
    glNormal3f(0, 0, -1);
    for (int i = 4; i >= 0; --i)
+   {
+      glTexCoord2d(x[i] + 0.16, y[i] / 1.78);
       glVertex3d(x[i], y[i], back);
+   }
    glEnd();
 
    glBegin(GL_QUADS);
@@ -291,14 +304,21 @@ void drawBladeUnit()
       const double dy = y[next] - y[i];
       const double length = std::sqrt(dx * dx + dy * dy);
       glNormal3d(dy / length, -dx / length, 0);
-      glVertex3d(x[i], y[i], front);
-      glVertex3d(x[next], y[next], front);
-      glVertex3d(x[next], y[next], back);
-      glVertex3d(x[i], y[i], back);
+      glTexCoord2f(0, 0); glVertex3d(x[i], y[i], front);
+      glTexCoord2f(1, 0); glVertex3d(x[next], y[next], front);
+      glTexCoord2f(1, 1); glVertex3d(x[next], y[next], back);
+      glTexCoord2f(0, 1); glVertex3d(x[i], y[i], back);
    }
    glEnd();
 }
 
+/*
+AI assistance note:
+This function was drafted with AI assistance and then reviewed/modified.
+The important course concept used here is manual normal-vector assignment
+for fixed-pipeline OpenGL lighting. No GLU/GLUT solid objects or imported
+models are used.
+*/
 void drawHubUnit()
 {
    const int sides = 12;
@@ -311,7 +331,9 @@ void drawHubUnit()
    {
       const double angle = 360.0 * i / sides;
       glNormal3d(Cos(angle), Sin(angle), 0);
+      glTexCoord2d(static_cast<double>(i) / sides, 1);
       glVertex3d(radius * Cos(angle), radius * Sin(angle), front);
+      glTexCoord2d(static_cast<double>(i) / sides, 0);
       glVertex3d(radius * Cos(angle), radius * Sin(angle), back);
    }
    glEnd();
@@ -321,6 +343,7 @@ void drawHubUnit()
    for (int i = 0; i < sides; ++i)
    {
       const double angle = 360.0 * i / sides;
+      glTexCoord2d(0.5 + 0.5 * Cos(angle), 0.5 + 0.5 * Sin(angle));
       glVertex3d(radius * Cos(angle), radius * Sin(angle), front);
    }
    glEnd();
@@ -330,13 +353,26 @@ void drawHubUnit()
    for (int i = sides - 1; i >= 0; --i)
    {
       const double angle = 360.0 * i / sides;
+      glTexCoord2d(0.5 + 0.5 * Cos(angle), 0.5 + 0.5 * Sin(angle));
       glVertex3d(radius * Cos(angle), radius * Sin(angle), back);
    }
    glEnd();
 }
 
+/*
+AI assistance note:
+This function was drafted with AI assistance and then reviewed/modified.
+The important course concept used here is manual normal-vector assignment
+for fixed-pipeline OpenGL lighting. No GLU/GLUT solid objects or imported
+models are used.
+*/
 void drawWindmillBaseUnit()
 {
+   const double taper = 0.21 / 2.61;
+   const double normalLength = std::sqrt(1.0 + taper * taper);
+   const double normalSide = 1.0 / normalLength;
+   const double normalUp = taper / normalLength;
+
    glPushMatrix();
    glTranslated(0, 0.12, 0);
    glScaled(0.9, 0.24, 0.9);
@@ -344,29 +380,29 @@ void drawWindmillBaseUnit()
    glPopMatrix();
 
    glBegin(GL_QUADS);
-   glNormal3f(0, 0.08f, 1);
-   glVertex3d(-0.35, 0.24,  0.35);
-   glVertex3d( 0.35, 0.24,  0.35);
-   glVertex3d( 0.14, 2.85,  0.14);
-   glVertex3d(-0.14, 2.85,  0.14);
+   glNormal3d(0, normalUp, normalSide);
+   glTexCoord2f(0, 0); glVertex3d(-0.35, 0.24,  0.35);
+   glTexCoord2f(1, 0); glVertex3d( 0.35, 0.24,  0.35);
+   glTexCoord2f(1, 3); glVertex3d( 0.14, 2.85,  0.14);
+   glTexCoord2f(0, 3); glVertex3d(-0.14, 2.85,  0.14);
 
-   glNormal3f(0, 0.08f, -1);
-   glVertex3d( 0.35, 0.24, -0.35);
-   glVertex3d(-0.35, 0.24, -0.35);
-   glVertex3d(-0.14, 2.85, -0.14);
-   glVertex3d( 0.14, 2.85, -0.14);
+   glNormal3d(0, normalUp, -normalSide);
+   glTexCoord2f(0, 0); glVertex3d( 0.35, 0.24, -0.35);
+   glTexCoord2f(1, 0); glVertex3d(-0.35, 0.24, -0.35);
+   glTexCoord2f(1, 3); glVertex3d(-0.14, 2.85, -0.14);
+   glTexCoord2f(0, 3); glVertex3d( 0.14, 2.85, -0.14);
 
-   glNormal3f(-1, 0.08f, 0);
-   glVertex3d(-0.35, 0.24, -0.35);
-   glVertex3d(-0.35, 0.24,  0.35);
-   glVertex3d(-0.14, 2.85,  0.14);
-   glVertex3d(-0.14, 2.85, -0.14);
+   glNormal3d(-normalSide, normalUp, 0);
+   glTexCoord2f(0, 0); glVertex3d(-0.35, 0.24, -0.35);
+   glTexCoord2f(1, 0); glVertex3d(-0.35, 0.24,  0.35);
+   glTexCoord2f(1, 3); glVertex3d(-0.14, 2.85,  0.14);
+   glTexCoord2f(0, 3); glVertex3d(-0.14, 2.85, -0.14);
 
-   glNormal3f(1, 0.08f, 0);
-   glVertex3d(0.35, 0.24,  0.35);
-   glVertex3d(0.35, 0.24, -0.35);
-   glVertex3d(0.14, 2.85, -0.14);
-   glVertex3d(0.14, 2.85,  0.14);
+   glNormal3d(normalSide, normalUp, 0);
+   glTexCoord2f(0, 0); glVertex3d(0.35, 0.24,  0.35);
+   glTexCoord2f(1, 0); glVertex3d(0.35, 0.24, -0.35);
+   glTexCoord2f(1, 3); glVertex3d(0.14, 2.85, -0.14);
+   glTexCoord2f(0, 3); glVertex3d(0.14, 2.85,  0.14);
    glEnd();
 
    glPushMatrix();
@@ -379,12 +415,20 @@ void drawWindmillBaseUnit()
 void drawWindmillUnit(double bladeOffset)
 {
    // The generic windmill stays at the origin so one model can be instanced.
+   if (textures)
+   {
+      glEnable(GL_TEXTURE_2D);
+      glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+      glBindTexture(GL_TEXTURE_2D, textureMetal);
+   }
    drawWindmillBaseUnit();
 
    glPushMatrix();
    glTranslated(0, 3.0, 0.58);
    glRotated(bladeAngle + bladeOffset, 0, 0, 1);
    glColor3f(0.92f, 0.84f, 0.58f);
+   if (textures)
+      glBindTexture(GL_TEXTURE_2D, textureWood);
    for (int blade = 0; blade < 4; ++blade)
    {
       glPushMatrix();
@@ -393,8 +437,11 @@ void drawWindmillUnit(double bladeOffset)
       glPopMatrix();
    }
    glColor3f(0.32f, 0.25f, 0.18f);
+   if (textures)
+      glBindTexture(GL_TEXTURE_2D, textureMetal);
    drawHubUnit();
    glPopMatrix();
+   glDisable(GL_TEXTURE_2D);
 }
 
 void drawWindmillInstance(const Instance& instance)
@@ -436,6 +483,7 @@ void drawGround()
 
    glColor3f(0.34f, 0.55f, 0.25f);
    glBegin(GL_LINES);
+   glNormal3f(0, 1, 0);
    for (int i = -8; i <= 8; ++i)
    {
       glVertex3d(i, 0, -7);
@@ -487,6 +535,12 @@ void drawFenceSection(double x, double z, double length, double rotation)
    glTranslated(x, 0, z);
    glRotated(rotation, 0, 1, 0);
    glColor3f(0.55f, 0.34f, 0.16f);
+   if (textures)
+   {
+      glEnable(GL_TEXTURE_2D);
+      glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+      glBindTexture(GL_TEXTURE_2D, textureWood);
+   }
 
    for (double post = -length / 2; post <= length / 2 + 0.01; post += 2.0)
    {
@@ -505,6 +559,7 @@ void drawFenceSection(double x, double z, double length, double rotation)
       drawBoxUnit();
       glPopMatrix();
    }
+   glDisable(GL_TEXTURE_2D);
    glPopMatrix();
 }
 
@@ -526,38 +581,51 @@ void drawFence()
    }
 }
 
+/*
+AI assistance note:
+This function was drafted with AI assistance and then reviewed/modified.
+The important course concept used here is manual normal-vector assignment
+for fixed-pipeline OpenGL lighting. No GLU/GLUT solid objects or imported
+models are used.
+*/
 void drawGableRoofUnit()
 {
-   glBegin(GL_QUADS);
-   glNormal3f(0, 0.64f, -0.77f);
-   glVertex3d(-0.5, 0.0, -0.5);
-   glVertex3d( 0.5, 0.0, -0.5);
-   glVertex3d( 0.5, 0.6,  0.0);
-   glVertex3d(-0.5, 0.6,  0.0);
+   const double run = 0.5;
+   const double rise = 0.6;
+   const double slopeLength = std::sqrt(run * run + rise * rise);
+   const double normalY = run / slopeLength;
+   const double normalZ = rise / slopeLength;
 
-   glNormal3f(0, 0.64f, 0.77f);
-   glVertex3d(-0.5, 0.6, 0.0);
-   glVertex3d( 0.5, 0.6, 0.0);
-   glVertex3d( 0.5, 0.0, 0.5);
-   glVertex3d(-0.5, 0.0, 0.5);
+   glBegin(GL_QUADS);
+   glNormal3d(0, normalY, -normalZ);
+   glTexCoord2f(0, 0); glVertex3d(-0.5, 0.0, -0.5);
+   glTexCoord2f(2, 0); glVertex3d( 0.5, 0.0, -0.5);
+   glTexCoord2f(2, 1); glVertex3d( 0.5, 0.6,  0.0);
+   glTexCoord2f(0, 1); glVertex3d(-0.5, 0.6,  0.0);
+
+   glNormal3d(0, normalY, normalZ);
+   glTexCoord2f(0, 1); glVertex3d(-0.5, 0.6, 0.0);
+   glTexCoord2f(2, 1); glVertex3d( 0.5, 0.6, 0.0);
+   glTexCoord2f(2, 0); glVertex3d( 0.5, 0.0, 0.5);
+   glTexCoord2f(0, 0); glVertex3d(-0.5, 0.0, 0.5);
 
    glNormal3f(0, -1, 0);
-   glVertex3d(-0.5, 0.0,  0.5);
-   glVertex3d( 0.5, 0.0,  0.5);
-   glVertex3d( 0.5, 0.0, -0.5);
-   glVertex3d(-0.5, 0.0, -0.5);
+   glTexCoord2f(0, 0); glVertex3d(-0.5, 0.0,  0.5);
+   glTexCoord2f(1, 0); glVertex3d( 0.5, 0.0,  0.5);
+   glTexCoord2f(1, 1); glVertex3d( 0.5, 0.0, -0.5);
+   glTexCoord2f(0, 1); glVertex3d(-0.5, 0.0, -0.5);
    glEnd();
 
    glBegin(GL_TRIANGLES);
    glNormal3f(-1, 0, 0);
-   glVertex3d(-0.5, 0.0, -0.5);
-   glVertex3d(-0.5, 0.6,  0.0);
-   glVertex3d(-0.5, 0.0,  0.5);
+   glTexCoord2f(0, 0);   glVertex3d(-0.5, 0.0, -0.5);
+   glTexCoord2f(0.5, 1); glVertex3d(-0.5, 0.6,  0.0);
+   glTexCoord2f(1, 0);   glVertex3d(-0.5, 0.0,  0.5);
 
    glNormal3f(1, 0, 0);
-   glVertex3d(0.5, 0.0,  0.5);
-   glVertex3d(0.5, 0.6,  0.0);
-   glVertex3d(0.5, 0.0, -0.5);
+   glTexCoord2f(0, 0);   glVertex3d(0.5, 0.0,  0.5);
+   glTexCoord2f(0.5, 1); glVertex3d(0.5, 0.6,  0.0);
+   glTexCoord2f(1, 0);   glVertex3d(0.5, 0.0, -0.5);
    glEnd();
 }
 
@@ -568,6 +636,12 @@ void drawBarnOrShed()
    glRotated(-18, 0, 1, 0);
 
    glColor3f(0.55f, 0.16f, 0.12f);
+   if (textures)
+   {
+      glEnable(GL_TEXTURE_2D);
+      glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+      glBindTexture(GL_TEXTURE_2D, textureWood);
+   }
    glPushMatrix();
    glTranslated(0, 0.9, 0);
    glScaled(2.4, 1.8, 2.0);
@@ -575,6 +649,8 @@ void drawBarnOrShed()
    glPopMatrix();
 
    glColor3f(0.30f, 0.12f, 0.09f);
+   if (textures)
+      glBindTexture(GL_TEXTURE_2D, textureRoof);
    glPushMatrix();
    glTranslated(0, 1.75, 0);
    glScaled(2.7, 1.15, 2.3);
@@ -582,11 +658,14 @@ void drawBarnOrShed()
    glPopMatrix();
 
    glColor3f(0.80f, 0.72f, 0.52f);
+   if (textures)
+      glBindTexture(GL_TEXTURE_2D, textureWood);
    glPushMatrix();
    glTranslated(-1.21, 0.75, 0);
    glScaled(0.05, 1.15, 0.75);
    drawBoxUnit();
    glPopMatrix();
+   glDisable(GL_TEXTURE_2D);
    glPopMatrix();
 }
 
