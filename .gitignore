@@ -1,0 +1,11 @@
+.DS_Store
+*.o
+hw2
+hw3
+*.zip
+
+# Keep the old nested homework folder local; HW3 submission files live at repo root.
+Computer_Graphics_2/
+
+# Keep downloaded course materials local; do not push them with the HW3 submission.
+Materials week_3/
