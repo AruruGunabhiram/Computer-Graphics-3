@@ -1,0 +1,21 @@
+ex17: Axi-symmetric object for lighting and textures.
+
+Willem A. (Vlakkies) Schreuder
+CSCI4229/5229 Summer 2026
+
+
+
+Key bindings
+  l          Toggle lighting on/off
+  m          Toggles textures on/off
+  a/A        decrease/increase ambient light
+  d/D        decrease/increase diffuse light
+  s/S        decrease/increase specular light
+  e/E        decrease/increase emitted light
+  n/N        Decrease/increase shininess
+  []         Lower/rise light
+  x          Toggle axes
+  arrows     Change view angle
+  PgDn/PgUp  Zoom in and out
+  0          Reset view angle
+  ESC        Exit
