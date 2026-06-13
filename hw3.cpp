@@ -2,8 +2,8 @@
  * Homework 3
  * Gunabhiram Aruru
  *
- * Fixed-function OpenGL/GLUT windmill farm scene.
- * Lighting and textures will be added in later stages.
+ * Homework 3: textured 3D farm scene with moving positional light.
+ * Handmade scene geometry includes normals and texture coordinates.
  */
 
 #ifdef __APPLE__
@@ -46,9 +46,9 @@ struct FenceSection
 int axes = 1;          // Display axes
 int mode = 0;          // Projection mode
 int rotateBlades = 1;  // Animate windmill blades
-int lighting = 1;      // Placeholder for lighting on/off
-int textures = 1;      // Placeholder for textures on/off
-int moveLight = 1;     // Placeholder for moving light pause/run
+int lighting = 1;      // Toggle lighting on/off
+int textures = 1;      // Toggle textures on/off
+int moveLight = 1;     // Pause/resume moving light
 double lightAngle = 90;
 double lightHeight = 5;
 int th = 35;           // Overhead azimuth
@@ -84,6 +84,13 @@ void TextureError(const char* message, const char* file)
 {
    std::fprintf(stderr, "Texture error: %s: %s\n", message, file);
    std::exit(1);
+}
+
+static void ErrCheck(const char* where)
+{
+   const int err = glGetError();
+   if (err)
+      std::fprintf(stderr, "ERROR: %s [%s]\n", gluErrorString(err), where);
 }
 
 // Course-style loader for uncompressed 24-bit BMP texture files.
@@ -825,6 +832,7 @@ void display()
    glPopMatrix();
    glMatrixMode(GL_MODELVIEW);
 
+   ErrCheck("display");
    glutSwapBuffers();
 }
 

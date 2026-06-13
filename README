@@ -7,6 +7,9 @@ This program creates a 3D textured scene using handmade OpenGL geometry.
 The scene continues from my Homework 2 work and adds lighting, material
 properties, texture mapping, and a moving positional light source.
 
+Lighting and textures are enabled by default when the program starts.
+The default view is an oblique overhead overview; press m to cycle view modes.
+
 The scene includes:
 - a textured ground plane
 - handmade textured box-based objects
@@ -84,26 +87,19 @@ The light marker, coordinate axes, ground guide lines, and on-screen text
 are intentionally untextured. They are interface/debugging aids rather than
 scene materials, so solid colors keep them clear and easy to read.
 
-Code Reuse / References / AI Usage
-----------------------------------
-This project continues from my Homework 2 scene structure.
-
-I reused or adapted general OpenGL patterns from the course examples,
-especially the examples covering texture loading, fixed-pipeline lighting,
-material settings, moving lights, and manual normal vectors.
-
-The texture BMP loading helper is based on the course example helper code
-if included in this submission.
-
-AI assistance was used as a coding aid for selected implementation details,
-especially for reviewing normal-vector logic, texture-coordinate assignment,
-and organizing the Homework 3 conversion checklist. AI-assisted code was
-reviewed, tested, and modified before submission. I am responsible for the
-final code.
-
-In the source code, complex AI-assisted geometry functions include short
-comment blocks explaining the assisted section and the course concept used.
-Simple boilerplate and small edits are not individually marked.
+Code Reuse / References
+-----------------------
+- Reused camera navigation, projection switching, scene structure, and
+  keyboard-control ideas from my Homework 2.
+- Used class lighting example patterns for GL_LIGHT0, material settings,
+  moving light position, and surface normals.
+- Used class texture example patterns for BMP loading, glBindTexture,
+  glTexCoord usage, and GL_MODULATE texture-light interaction.
+- I personally implemented the farm/windmill scene composition, texture
+  assignment, handmade geometry normals, moving light integration, and final
+  controls.
+- AI assistance was used for review/debugging suggestions; all final code was
+  tested, modified, and understood by me.
 
 Approximate Time Spent
 ----------------------
