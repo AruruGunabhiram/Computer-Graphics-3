@@ -39,6 +39,9 @@ Controls
 --------
 Arrow keys        Change view angle
 PageUp/PageDown   Zoom in/out or change scene dimension
+a                 Toggle axes on/off
++ or =            Zoom in / decrease scene dimension or FOV
+- or _            Zoom out / increase scene dimension or FOV
 0                 Reset view and light to default
 m                 Toggle projection mode
 l                 Toggle lighting on/off
@@ -91,10 +94,12 @@ Code Reuse / References
 -----------------------
 - Reused camera navigation, projection switching, scene structure, and
   keyboard-control ideas from my Homework 2.
-- Used class lighting example patterns for GL_LIGHT0, material settings,
-  moving light position, and surface normals.
-- Used class texture example patterns for BMP loading, glBindTexture,
-  glTexCoord usage, and GL_MODULATE texture-light interaction.
+- Used class texture example ex14 patterns, especially BMP texture loading,
+  glBindTexture, glTexCoord, and GL_MODULATE usage from its texture-mapping
+  demonstration.
+- Used class lighting example ex16 patterns for GL_LIGHT0, material settings,
+  moving positional light, and surface normals from its lighting
+  demonstration.
 - I personally implemented the farm/windmill scene composition, texture
   assignment, handmade geometry normals, moving light integration, and final
   controls.
